@@ -2,6 +2,10 @@ function setupToolsTabs() {
   var tabs = $('.tabs__top-bar li');
   var tabContents = $('.tabs__content');
 
+  // If we have a tool in the url fragement, pre-select it
+  if (location.hash && location.hash.length > 1)
+    selectToolInTabs(location.hash.substr(1));
+
   function clearTabsCurrent() {
     tabs.removeClass('current');
     tabContents.removeClass('current');
@@ -15,6 +19,15 @@ function setupToolsTabs() {
     $(this).addClass('current');
     $("#" + tab_id).addClass('current');
   });
+
+  // The following selects a tool tab in /guides/get-started
+  function selectToolInTabs(toolName) {
+    clearTabsCurrent();
+
+    var toolNameEscaped = $.escapeSelector(toolName);
+    $("li[data-tab='tab-install-" + toolNameEscaped + "']").addClass('current');
+    $('#tab-install-' + toolNameEscaped).addClass('current');
+  }
 }
 
 function setupOsTabs() {
