@@ -22,11 +22,15 @@ function setupToolsTabs() {
 
   // The following selects a tool tab in /guides/get-started
   function selectToolInTabs(toolName) {
-    clearTabsCurrent();
-
     var toolNameEscaped = $.escapeSelector(toolName);
-    $("li[data-tab='tab-install-" + toolNameEscaped + "']").addClass('current');
-    $('#tab-install-' + toolNameEscaped).addClass('current');
+
+    // Check this is a valid tool first, so we don't hide all tabs
+    if ($("li[data-tab='tab-install-" + toolNameEscaped + "']").length > 0) {
+      clearTabsCurrent();
+
+      $("li[data-tab='tab-install-" + toolNameEscaped + "']").addClass('current');
+      $('#tab-install-' + toolNameEscaped).addClass('current');
+    }
   }
 }
 
